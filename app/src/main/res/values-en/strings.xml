@@ -1,12 +1,22 @@
 <resources>
     <string name="app_name">Medications</string>
+
+    <!-- Hints -->
     <string name="hint_nome">Medication name</string>
     <string name="hint_descricao">Description</string>
     <string name="hint_horario">Time (e.g., 08:00)</string>
+
+    <!-- Buttons -->
     <string name="botao_salvar">Save</string>
     <string name="botao_adicionar">Add</string>
+    <string name="botao_consumido">Taken</string>
+    <string name="botao_excluir">Delete</string>
+
+    <!-- Messages -->
     <string name="mensagem_salvo">Medication saved!</string>
     <string name="mensagem_tela_cadastro">Registration screen (next step)</string>
+
+    <!-- Labels -->
     <string name="label_horario">Time: %1$s</string>
     <string name="status_consumido">Status: Taken</string>
     <string name="status_nao_consumido">Status: Not taken</string>

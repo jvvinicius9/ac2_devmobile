@@ -1,14 +1,23 @@
 <resources>
     <string name="app_name">Remédios</string>
+
+    <!-- Hints dos campos -->
     <string name="hint_nome">Nome do medicamento</string>
     <string name="hint_descricao">Descrição</string>
     <string name="hint_horario">Horário (ex: 08:00)</string>
+
+    <!-- Botões -->
     <string name="botao_salvar">Salvar</string>
     <string name="botao_adicionar">Adicionar</string>
+    <string name="botao_consumido">Consumido</string>
+    <string name="botao_excluir">Excluir</string>
+
+    <!-- Mensagens -->
     <string name="mensagem_salvo">Medicamento salvo!</string>
     <string name="mensagem_tela_cadastro">Tela de cadastro (próximo passo)</string>
+
+    <!-- Labels -->
     <string name="label_horario">Horário: %1$s</string>
     <string name="status_consumido">Status: Consumido</string>
     <string name="status_nao_consumido">Status: Não consumido</string>
-
 </resources>

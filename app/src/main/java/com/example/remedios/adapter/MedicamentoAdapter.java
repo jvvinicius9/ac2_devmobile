@@ -38,12 +38,32 @@ public class MedicamentoAdapter extends ArrayAdapter<Medicamento> {
         TextView txtNome = convertView.findViewById(R.id.txtNome);
         TextView txtHorario = convertView.findViewById(R.id.txtHorario);
         TextView txtStatus = convertView.findViewById(R.id.txtStatus);
-        Button btnExcluir = convertView.findViewById(R.id.btnExcluir); // ✅ novo
+        Button btnConsumido = convertView.findViewById(R.id.btnConsumido);
+        Button btnExcluir = convertView.findViewById(R.id.btnExcluir);
 
+        // Preenchimento de textos
         txtNome.setText(medicamento.nome);
-        txtHorario.setText("Horário: " + medicamento.horario);
-        txtStatus.setText("Status: " + (medicamento.consumido == 1 ? "Consumido" : "Não consumido"));
+        txtHorario.setText(context.getString(R.string.label_horario, medicamento.horario));
+        txtStatus.setText(medicamento.consumido == 1
+                ? context.getString(R.string.status_consumido)
+                : context.getString(R.string.status_nao_consumido));
 
+        // Necessário para ListView funcionar corretamente com botões
+        btnConsumido.setFocusable(false);
+        btnConsumido.setFocusableInTouchMode(false);
+        btnExcluir.setFocusable(false);
+        btnExcluir.setFocusableInTouchMode(false);
+
+        // Ação do botão Consumido
+        btnConsumido.setOnClickListener(v -> {
+            if (medicamento.consumido == 0) {
+                dbHelper.marcarConsumido(medicamento.id);
+                medicamento.consumido = 1; // atualiza na lista
+                notifyDataSetChanged();
+            }
+        });
+
+        // Ação do botão Excluir
         btnExcluir.setOnClickListener(v -> {
             dbHelper.excluirMedicamento(medicamento.id);
             medicamentos.remove(position);
