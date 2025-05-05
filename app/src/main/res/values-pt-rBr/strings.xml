@@ -5,6 +5,8 @@
     <string name="hint_nome">Nome do medicamento</string>
     <string name="hint_descricao">Descrição</string>
     <string name="hint_horario">Horário (ex: 08:00)</string>
+    <string name="descricao">Ver descrição</string>
+
 
     <!-- Botões -->
     <string name="botao_salvar">Salvar</string>

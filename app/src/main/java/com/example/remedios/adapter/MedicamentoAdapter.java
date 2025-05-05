@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.remedios.R;
@@ -38,32 +39,53 @@ public class MedicamentoAdapter extends ArrayAdapter<Medicamento> {
         TextView txtNome = convertView.findViewById(R.id.txtNome);
         TextView txtHorario = convertView.findViewById(R.id.txtHorario);
         TextView txtStatus = convertView.findViewById(R.id.txtStatus);
+        TextView txtDescricao = convertView.findViewById(R.id.txtDescricao);
         Button btnConsumido = convertView.findViewById(R.id.btnConsumido);
         Button btnExcluir = convertView.findViewById(R.id.btnExcluir);
+        ImageButton btnExpandir = convertView.findViewById(R.id.btnExpandir);
 
-        // Preenchimento de textos
         txtNome.setText(medicamento.nome);
         txtHorario.setText(context.getString(R.string.label_horario, medicamento.horario));
         txtStatus.setText(medicamento.consumido == 1
                 ? context.getString(R.string.status_consumido)
                 : context.getString(R.string.status_nao_consumido));
+        txtDescricao.setText(medicamento.descricao);
 
-        // Necessário para ListView funcionar corretamente com botões
+        // Foco para o ListView funcionar corretamente
         btnConsumido.setFocusable(false);
         btnConsumido.setFocusableInTouchMode(false);
         btnExcluir.setFocusable(false);
         btnExcluir.setFocusableInTouchMode(false);
+        btnExpandir.setFocusable(false);
+        btnExpandir.setFocusableInTouchMode(false);
 
-        // Ação do botão Consumido
-        btnConsumido.setOnClickListener(v -> {
-            if (medicamento.consumido == 0) {
-                dbHelper.marcarConsumido(medicamento.id);
-                medicamento.consumido = 1; // atualiza na lista
-                notifyDataSetChanged();
+        // Alternar visibilidade da descrição
+        btnExpandir.setOnClickListener(v -> {
+            if (txtDescricao.getVisibility() == View.GONE) {
+                txtDescricao.setVisibility(View.VISIBLE);
+                btnExpandir.setImageResource(android.R.drawable.arrow_up_float);
+            } else {
+                txtDescricao.setVisibility(View.GONE);
+                btnExpandir.setImageResource(android.R.drawable.arrow_down_float);
             }
         });
 
-        // Ação do botão Excluir
+        // Lógica do botão "Consumido"
+        if (medicamento.consumido == 1) {
+            btnConsumido.setEnabled(false);
+            btnConsumido.setAlpha(0.5f);
+        } else {
+            btnConsumido.setEnabled(true);
+            btnConsumido.setAlpha(1f);
+
+            btnConsumido.setOnClickListener(v -> {
+                dbHelper.marcarConsumido(medicamento.id);
+                medicamento.consumido = 1;
+                notifyDataSetChanged();
+            });
+        }
+
+        // Lógica do botão "Excluir"
         btnExcluir.setOnClickListener(v -> {
             dbHelper.excluirMedicamento(medicamento.id);
             medicamentos.remove(position);
